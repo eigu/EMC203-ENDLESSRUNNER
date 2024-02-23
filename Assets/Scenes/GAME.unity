@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 482953733}
   - component: {fileID: 482953732}
   m_Layer: 0
-  m_Name: ItemParent
+  m_Name: ObstacleParent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -152,14 +152,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f364ab6e007df894cad3b2c87b598496, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemToSpawn: {fileID: 3590674340049150759, guid: 6b1ae80c678bcfb46af657b8eb904644, type: 3}
-  speed: 0.2
-  items: []
-  parent: {fileID: 482953733}
-  maxHorizontal: 10
-  minHorizontal: -10
-  maxVertical: 5
-  minVertical: -5
+  _parent: {fileID: 0}
+  _obstacleToSpawn: {fileID: 3590674340049150759, guid: 6b1ae80c678bcfb46af657b8eb904644, type: 3}
+  _obstacles: []
+  _speed: 0.1
 --- !u!4 &482953733
 Transform:
   m_ObjectHideFlags: 0
@@ -280,8 +276,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d69e3f3e7d0586a4ca0aeac264cdb7ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  focalLenth: 300
-  vanishingPoint: {x: 0, y: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
