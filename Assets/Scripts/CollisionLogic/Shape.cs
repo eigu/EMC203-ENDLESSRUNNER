@@ -6,4 +6,9 @@ public class Shape : MonoBehaviour
   {
     get { return GetComponent<FakeTransform>(); }
   }
+
+  public virtual void DrawCollider()
+  {
+
+  }
 }

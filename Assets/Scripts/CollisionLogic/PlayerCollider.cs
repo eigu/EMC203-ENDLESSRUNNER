@@ -11,6 +11,8 @@ public class PlayerCollider : MonoBehaviour
   [SerializeField]
   private HealthManager playerHealth;
 
+  private bool hasTakenDamage = false;
+
   private void Update()
   {
     HandleCollision();
@@ -24,10 +26,27 @@ public class PlayerCollider : MonoBehaviour
     {
       if (playerCollider == c) continue;
 
-      if (CollisionLibrary.CheckCollision(playerCollider, c))
+      if (CollisionLibrary.CheckCollision(playerCollider, c)
+        && !hasTakenDamage)
       {
+        hasTakenDamage = true;
         playerHealth.Decrease(1);
       }
+
+      if (!CollisionLibrary.CheckCollision(playerCollider, c)
+        && hasTakenDamage)
+      {
+        hasTakenDamage = false;
+      }
+    }
+  }
+
+  private void OnDrawGizmos()
+  {
+    var Colliders = FindObjectsOfType<Shape>();
+    foreach (var c in Colliders)
+    {
+      c.DrawCollider();
     }
   }
 }

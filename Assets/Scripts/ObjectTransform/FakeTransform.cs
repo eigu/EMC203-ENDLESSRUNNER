@@ -13,6 +13,11 @@ public class FakeTransform : MonoBehaviour
   protected virtual void Update()
   {
     AdjustPerspetive();
+
+    if (FakePosition.z <= -CameraComponent.FocalLength)
+    {
+      Destroy(gameObject);
+    }
   }
 
   protected virtual void AdjustPerspetive()
