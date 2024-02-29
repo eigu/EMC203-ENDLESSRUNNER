@@ -1,22 +1,21 @@
 using UnityEngine;
 
-public class Obstacle : MonoBehaviour
+public class FakeTransform : MonoBehaviour
 {
   [SerializeField]
-  private Vector3 _fakePosition;
-
+  protected Vector3 _fakePosition;
   public Vector3 FakePosition
   {
     get { return _fakePosition; }
     set { _fakePosition = value; }
   }
 
-  private void Update()
+  protected virtual void Update()
   {
     AdjustPerspetive();
   }
 
-  private void AdjustPerspetive()
+  protected virtual void AdjustPerspetive()
   {
     var perspective = CameraComponent.FocalLength / (CameraComponent.FocalLength + FakePosition.z);
 

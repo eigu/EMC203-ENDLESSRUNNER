@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ObstacleManager : MonoBehaviour
+public class ObstacleMover : MonoBehaviour
 {
   [SerializeField]
-  private List<Obstacle> _obstacles = new List<Obstacle>();
+  private List<ObstacleTransform> _obstacles;
   [SerializeField]
   private float _speed;
 
@@ -14,17 +14,17 @@ public class ObstacleManager : MonoBehaviour
 
     foreach (var obstacle in _obstacles)
     {
-      ObstacleMover(obstacle);
+      Move(obstacle);
     }
   }
 
   private void PopulateObjectList()
   {
     _obstacles.Clear();
-    _obstacles.AddRange(FindObjectsOfType<Obstacle>());
+    _obstacles.AddRange(FindObjectsOfType<ObstacleTransform>());
   }
 
-  private void ObstacleMover(Obstacle obstacle)
+  private void Move(ObstacleTransform obstacle)
   {
     var movePosition = obstacle.FakePosition;
     movePosition.z -= _speed;
