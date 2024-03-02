@@ -1,11 +1,11 @@
 public static class CollisionLibrary
 {
-  public static bool CheckCollision(BoxCollider boxA, BoxCollider boxB)
+  public static bool CheckCollision(BoxCollision boxA, BoxCollision boxB)
   {
     return DidCollide(boxA, boxB);
   }
 
-  public static bool DidCollide(BoxCollider boxA, BoxCollider boxB)
+  public static bool DidCollide(BoxCollision boxA, BoxCollision boxB)
   {
     return BoxCheck(boxA.MinimumX, boxA.MaximumX, boxB.MinimumX, boxB.MaximumX)
         && BoxCheck(boxA.MinimumY, boxA.MaximumY, boxB.MinimumY, boxB.MaximumY)

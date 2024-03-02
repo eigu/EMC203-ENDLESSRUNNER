@@ -1,53 +1,58 @@
+using System.Collections;
 using UnityEngine;
 
-[RequireComponent(typeof(BoxCollider))]
+[RequireComponent(typeof(BoxCollision))]
 public class PlayerCollider : MonoBehaviour
 {
-  private BoxCollider playerCollider
-  {
-    get { return GetComponent<BoxCollider>(); }
-  }
-
-  [SerializeField]
-  private HealthManager playerHealth;
-
-  private bool hasTakenDamage = false;
-
-  private void Update()
-  {
-    HandleCollision();
-  }
-
-  public void HandleCollision()
-  {
-    var Colliders = FindObjectsOfType<BoxCollider>();
-
-    foreach (var c in Colliders)
+    private PlayerStat playerStat
     {
-      if (playerCollider == c) continue;
+        get { return GetComponent<PlayerStat>(); }
+    }
 
-      if (CollisionLibrary.CheckCollision(playerCollider, c)
-        && !hasTakenDamage)
-      {
-        hasTakenDamage = true;
-        playerHealth.Decrease(1);
-      }
+    private BoxCollision m_playerCollider
+    {
+        get { return GetComponent<BoxCollision>(); }
+    }
 
-      if (!CollisionLibrary.CheckCollision(playerCollider, c)
-        && hasTakenDamage)
-      {
+    private bool hasTakenDamage = false;
+
+    private void Update()
+    {
+        HandleCollision();
+    }
+
+    public void HandleCollision()
+    {
+        var Colliders = FindObjectsOfType<BoxCollision>();
+
+        foreach (var c in Colliders)
+        {
+            if (m_playerCollider == c) continue;
+
+            if (CollisionLibrary.CheckCollision(m_playerCollider, c)
+                && !hasTakenDamage)
+            {
+                hasTakenDamage = true;
+                playerStat.DecreaseHP(1);
+
+                StartCoroutine(ResetDamageFlag(.25f));
+            }
+        }
+    }
+
+    private IEnumerator ResetDamageFlag(float duration)
+    {
+        yield return new WaitForSeconds(duration);
         hasTakenDamage = false;
-      }
     }
-  }
 
-  private void OnDrawGizmos()
-  {
-    var Colliders = FindObjectsOfType<Shape>();
-    foreach (var c in Colliders)
+    private void OnDrawGizmos()
     {
-      c.DrawCollider();
+        var Colliders = FindObjectsOfType<Shape>();
+        foreach (var c in Colliders)
+        {
+            c.DrawCollider();
+        }
     }
-  }
 }
 
