@@ -13,15 +13,15 @@ public class ObstacleTransform : FakeTransform
     {
         base.Update();
 
-        if (FakePosition.z <= -CameraComponent.FocalLength)
-        {
-            Destroy(gameObject);
-        }
+        if (FakePosition.z <= -CameraComponent.FocalLength) Destroy(gameObject);
 
         if (FakePosition.z <= m_playerTransform.FakePosition.z)
         {
-            var render = GetComponent<SpriteRenderer>();
-            render.sortingOrder = 1;
+            GetComponent<SpriteRenderer>().sortingOrder = 1;
+            return;
         }
+
+        int order = Mathf.FloorToInt(Mathf.Clamp(-FakePosition.z / 100, -3, 0));
+        GetComponent<SpriteRenderer>().sortingOrder = (order);
     }
 }

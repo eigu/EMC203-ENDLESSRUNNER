@@ -26,8 +26,6 @@ public class UIManager : MonoBehaviour
 
     private void Start()
     {
-        Time.timeScale = 1;
-
         HandleHealthBar(m_playerStat.CurrentHealth);
     }
 

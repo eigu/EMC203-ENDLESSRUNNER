@@ -14,8 +14,6 @@ public class PlayerCollider : MonoBehaviour
         get { return GetComponent<BoxCollision>(); }
     }
 
-    private bool hasTakenDamage = false;
-
     private void Update()
     {
         HandleCollision();
@@ -29,21 +27,12 @@ public class PlayerCollider : MonoBehaviour
         {
             if (m_playerCollider == c) continue;
 
-            if (CollisionLibrary.CheckCollision(m_playerCollider, c)
-                && !hasTakenDamage)
+            if (CollisionLibrary.CheckCollision(m_playerCollider, c))
             {
-                hasTakenDamage = true;
-                playerStat.DecreaseHP(1);
-
-                StartCoroutine(ResetDamageFlag(.25f));
+                playerStat.Damage(-1);
+                Destroy(c.gameObject);
             }
         }
-    }
-
-    private IEnumerator ResetDamageFlag(float duration)
-    {
-        yield return new WaitForSeconds(duration);
-        hasTakenDamage = false;
     }
 
     private void OnDrawGizmos()
